@@ -1,8 +1,9 @@
 {
   "name": "gui-tabs",
   "main": "dist/GuiTabs.umd.min.js",
-  "version": "0.1.0",  "scripts": {
-    "serve": "vue-cli-service serve src/Example.vue",
+  "version": "0.1.0",
+  "scripts": {
+    "serve": "vue-cli-service serve src/Example.js",
     "build": "vue-cli-service build --target lib --name GuiTabs src/GuiTabs.vue",
     "lint": "vue-cli-service lint"
   },
