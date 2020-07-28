@@ -137,6 +137,11 @@ const WHEEL_SENSITIVITY = 0.5
 
 export default {
   props: {
+    dblCreate: {
+      type: Boolean,
+      default: true
+    },
+
     l10n: {
       type: Object,
       default: () => ({
@@ -151,7 +156,7 @@ export default {
 
     hoverTab: null,
     draggedTab: null,
-    activeTab: null,
+    activeTab: {},
 
     isEditing: false,
     isDragging: false
@@ -159,8 +164,9 @@ export default {
 
   methods: {
     createTab (title, shouldBeActive = false) {
+      const id = Math.random().toString(16).slice(2)
       const tab = {
-        id: Math.random().toString(16).slice(2),
+        id,
         title: title || this.l10n.newTab
       }
       this.tabs.push(tab)
@@ -168,9 +174,13 @@ export default {
       if (shouldBeActive) {
         this.setActiveTab(tab)
       }
+      return id
     },
 
     handleDblclick () {
+      if (!this.dblCreate) {
+        return
+      }
       this.createTab(null, true)
     },
 
@@ -256,10 +266,6 @@ export default {
         this.setActiveTab(null)
       }
       this.setActiveTab(this.tabs[index] || this.tabs[0])
-    },
-
-    addTab (title, shouldBeActive = false) {
-      this.createTab(title, shouldBeActive)
     },
 
     removeTab (tab, shouldSetActive = true) {
